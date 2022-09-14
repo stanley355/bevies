@@ -1,5 +1,6 @@
-
 use crate::ball::Ball;
+use crate::bricks::*;
+use crate::collider::Collider;
 use crate::color::BACKGROUND_COLOR;
 use crate::paddle::Paddle;
 use crate::scoreboard::Scoreboard;
@@ -49,4 +50,20 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn_bundle(WallBundle::new(WallLocation::Right));
     commands.spawn_bundle(WallBundle::new(WallLocation::Bottom));
     commands.spawn_bundle(WallBundle::new(WallLocation::Top));
+
+    // Bricks
+    for row in 0..N_ROWS {
+        for column in 0..N_COLUMNS {
+            let offset_x = OFFSET_X + column as f32 * (BRICK_SIZE.x + GAP_BETWEEN_BRICKS);
+            let offset_y = OFFSET_Y + row as f32 * (BRICK_SIZE.y + GAP_BETWEEN_BRICKS);
+            let brick_position = Vec2::new(offset_x, offset_y);
+
+            let brick_sprite_bundle = Brick::brick_sprite_bundle(brick_position);
+            commands
+                .spawn()
+                .insert(Brick)
+                .insert_bundle(brick_sprite_bundle)
+                .insert(Collider);
+        }
+    }
 }
