@@ -1,6 +1,6 @@
 use crate::ball::{Ball, BALL_SPEED, INITIAL_BALL_DIRECTION};
 use crate::bricks::*;
-use crate::collider::Collider;
+use crate::collider::{Collider, CollisionEvent};
 use crate::color::BACKGROUND_COLOR;
 use crate::paddle::Paddle;
 use crate::scoreboard::Scoreboard;
@@ -16,6 +16,7 @@ impl Plugin for BreakoutPlugin {
         app.insert_resource(Scoreboard { score: 0 })
             .insert_resource(ClearColor(BACKGROUND_COLOR))
             .add_startup_system(setup)
+            .add_event::<CollisionEvent>()
             .add_system(window::close_on_esc);
     }
 }
