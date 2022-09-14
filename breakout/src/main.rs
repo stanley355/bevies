@@ -8,6 +8,7 @@ mod color;
 mod paddle;
 mod scoreboard;
 mod wall;
+mod velocity;
 
 fn main() {
     App::new()

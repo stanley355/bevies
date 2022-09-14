@@ -1,9 +1,10 @@
-use crate::ball::Ball;
+use crate::ball::{Ball, BALL_SPEED, INITIAL_BALL_DIRECTION};
 use crate::bricks::*;
 use crate::collider::Collider;
 use crate::color::BACKGROUND_COLOR;
 use crate::paddle::Paddle;
 use crate::scoreboard::Scoreboard;
+use crate::velocity::Velocity;
 use crate::wall::{WallBundle, WallLocation};
 use bevy::{prelude::*, window};
 
@@ -43,7 +44,8 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands
         .spawn()
         .insert(Ball)
-        .insert_bundle(ball_sprite_bundle);
+        .insert_bundle(ball_sprite_bundle)
+        .insert(Velocity(INITIAL_BALL_DIRECTION.normalize() * BALL_SPEED));
 
     // Walls
     commands.spawn_bundle(WallBundle::new(WallLocation::Left));

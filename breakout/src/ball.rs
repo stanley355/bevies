@@ -4,6 +4,8 @@ use bevy::prelude::*;
 // We set the z-value of the ball to 1 so it renders on top in the case of overlapping sprites.
 const BALL_STARTING_POSITION: Vec3 = Vec3::new(0.0, -50.0, 1.0);
 const BALL_SIZE: Vec3 = Vec3::new(30.0, 30.0, 0.0);
+pub const BALL_SPEED: f32 = 400.0;
+pub const INITIAL_BALL_DIRECTION: Vec2 = Vec2::new(0.5, -0.5);
 
 #[derive(Component)]
 pub struct Ball;
