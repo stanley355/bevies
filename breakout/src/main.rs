@@ -9,6 +9,7 @@ mod paddle;
 mod scoreboard;
 mod wall;
 mod velocity;
+mod system_set;
 
 fn main() {
     App::new()
