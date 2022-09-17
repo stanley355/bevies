@@ -7,9 +7,8 @@ mod collider;
 mod color;
 mod paddle;
 mod scoreboard;
-mod wall;
 mod velocity;
-mod system_set;
+mod wall;
 
 fn main() {
     App::new()

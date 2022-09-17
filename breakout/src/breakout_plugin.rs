@@ -1,5 +1,6 @@
 use crate::ball::{Ball, BALL_SPEED, INITIAL_BALL_DIRECTION};
 use crate::bricks::*;
+use crate::collider::check_for_collisions;
 use crate::collider::{Collider, CollisionEvent};
 use crate::color::BACKGROUND_COLOR;
 use crate::paddle::Paddle;
@@ -7,6 +8,9 @@ use crate::scoreboard::Scoreboard;
 use crate::velocity::Velocity;
 use crate::wall::{WallBundle, WallLocation};
 use bevy::{prelude::*, window};
+
+// Defines the amount of time that should elapse between each physics step.
+// const TIME_STEP: f32 = 1.0 / 60.0;
 
 #[derive(Debug)]
 pub struct BreakoutPlugin;
@@ -17,6 +21,11 @@ impl Plugin for BreakoutPlugin {
             .insert_resource(ClearColor(BACKGROUND_COLOR))
             .add_startup_system(setup)
             .add_event::<CollisionEvent>()
+            .add_system_set(
+                SystemSet::new()
+                    // .with_run_criteria(FixedTimeStep::step(TIME_STEP as f64))
+                    .with_system(check_for_collisions),
+            )
             .add_system(window::close_on_esc);
     }
 }
