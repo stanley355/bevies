@@ -10,7 +10,7 @@ use crate::wall::{WallBundle, WallLocation};
 use bevy::{prelude::*, window};
 
 // Defines the amount of time that should elapse between each physics step.
-// const TIME_STEP: f32 = 1.0 / 60.0;
+pub const TIME_STEP: f32 = 1.0 / 60.0;
 
 #[derive(Debug)]
 pub struct BreakoutPlugin;
@@ -24,7 +24,8 @@ impl Plugin for BreakoutPlugin {
             .add_system_set(
                 SystemSet::new()
                     // .with_run_criteria(FixedTimeStep::step(TIME_STEP as f64))
-                    .with_system(check_for_collisions),
+                    .with_system(check_for_collisions)
+                    .with_system(Paddle::move_paddle.before(check_for_collisions)),
             )
             .add_system(window::close_on_esc);
     }
