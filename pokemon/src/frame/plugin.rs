@@ -1,4 +1,4 @@
-use super::title::Title;
+use super::{border::Border, title::Title};
 use bevy::prelude::*;
 
 const BACKGROUND_COLOR: Color = Color::rgb(0., 0., 0.);
@@ -10,6 +10,10 @@ impl FramePlugin {
     pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
         let title_bundle = Title::text_bundle(asset_server);
         commands.spawn_bundle(title_bundle);
+
+        let left_border = Border::new(&Border::Left);
+
+        commands.spawn_bundle(left_border);
     }
 }
 
