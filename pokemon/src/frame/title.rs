@@ -18,8 +18,8 @@ impl Title {
     pub fn text_style(asset_server: Res<AssetServer>) -> TextStyle {
         TextStyle {
             color: TITLE_COLOR,
-            font: asset_server.load("fonts/FiraSans-Bold.ttf"),
-            font_size: 24.
+            font: asset_server.load("fonts/pkmndp.ttf"),
+            font_size: 20.
         }
     }
 
