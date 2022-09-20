@@ -21,4 +21,4 @@ jobs:
           override: true
 
       - name: Build code
-        run: cargo build -p breakout --release --all-features
+        run: cargo build -p pokemon --release --all-features

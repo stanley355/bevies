@@ -8,12 +8,15 @@ pub struct FramePlugin;
 
 impl FramePlugin {
     pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+        // Title
         let title_bundle = Title::text_bundle(asset_server);
         commands.spawn_bundle(title_bundle);
 
-        let left_border = Border::new(&Border::Left);
-
-        commands.spawn_bundle(left_border);
+        // Border
+        commands.spawn_bundle(Border::new(Border::Left));
+        commands.spawn_bundle(Border::new(Border::Right));
+        commands.spawn_bundle(Border::new(Border::Top));
+        commands.spawn_bundle(Border::new(Border::Bottom));
     }
 }
 
