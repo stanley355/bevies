@@ -8,6 +8,8 @@ pub struct FramePlugin;
 
 impl FramePlugin {
     pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+        commands.spawn_bundle(Camera2dBundle::default());
+        
         // Title
         let title_bundle = Title::text_bundle(asset_server);
         commands.spawn_bundle(title_bundle);
