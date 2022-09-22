@@ -11,7 +11,7 @@ impl TilesPlugin {
         asset_server: Res<AssetServer>,
         mut texture_atlas_res: ResMut<Assets<TextureAtlas>>,
     ) {
-        let boxa = BoxTiles::new(BoxTiles::Default, &asset_server, &mut texture_atlas_res);
+        let boxa = BoxTiles::new(BoxTiles::Plywood, &asset_server, &mut texture_atlas_res);
 
         commands.spawn_bundle(boxa);
     }
