@@ -1,5 +1,7 @@
 use bevy::prelude::*;
 
+use crate::tiles::box_tiles::BoxTiles;
+
 #[derive(Debug)]
 pub struct TilesPlugin;
 
@@ -9,23 +11,9 @@ impl TilesPlugin {
         asset_server: Res<AssetServer>,
         mut texture_atlas_res: ResMut<Assets<TextureAtlas>>,
     ) {
-        let texture_asset = asset_server.load("sprites/box-sprites.png");
-        let texture_atlas = TextureAtlas::from_grid(texture_asset, Vec2::new(200.0, 400.0), 1, 1);
-        let texture_atlas_handle = texture_atlas_res.add(texture_atlas);
+        let boxa = BoxTiles::new(BoxTiles::Default, &asset_server, &mut texture_atlas_res);
 
-        let sprite_transform = Transform {
-            translation: Vec3::new(0., 0., 0.),
-            scale: Vec3::new(1., 1., 0.0),
-            ..default()
-        };
-
-        let sprite_sheet = SpriteSheetBundle {
-            texture_atlas: texture_atlas_handle,
-            transform: sprite_transform,
-            ..default()
-        };
-
-        commands.spawn_bundle(sprite_sheet);
+        commands.spawn_bundle(boxa);
     }
 }
 

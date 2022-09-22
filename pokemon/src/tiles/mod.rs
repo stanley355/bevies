@@ -1,2 +1,2 @@
 pub mod plugin;
-pub mod main;
+pub mod box_tiles;
