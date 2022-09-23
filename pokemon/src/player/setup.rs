@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use super::sprites::PlayerSprites;
+use super::{sprites::PlayerSprites, player::Player};
 
 #[derive(Debug)]
 pub struct PlayerSetup;
@@ -12,6 +12,9 @@ impl PlayerSetup {
         mut texture_atlas_res: ResMut<Assets<TextureAtlas>>,
     ) {
         let player_sprites = PlayerSprites::new(&asset_server, &mut texture_atlas_res);
-        commands.spawn_bundle(player_sprites);
+        commands
+            .spawn()
+            .insert(Player)
+            .insert_bundle(player_sprites);
     }
 }
