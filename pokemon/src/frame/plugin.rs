@@ -17,8 +17,6 @@ impl FramePlugin {
         // Border
         commands.spawn_bundle(Border::new(Border::Left));
         commands.spawn_bundle(Border::new(Border::Right));
-        commands.spawn_bundle(Border::new(Border::Top));
-        commands.spawn_bundle(Border::new(Border::Bottom));
     }
 }
 

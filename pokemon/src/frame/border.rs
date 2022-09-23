@@ -7,8 +7,8 @@ pub const BORDER_THICKNESS: f32 = 10.;
 pub enum Border {
     Left,
     Right,
-    Bottom,
-    Top,
+    // Bottom,
+    // Top,
 }
 
 impl Border {
@@ -27,18 +27,18 @@ impl Border {
         match self {
             Border::Left => Vec2::new(-BORDER_X_POSITION, 0.),
             Border::Right => Vec2::new(BORDER_X_POSITION, 0.),
-            Border::Top => Vec2::new(0., BORDER_Y_POSITION),
-            Border::Bottom => Vec2::new(0., -BORDER_Y_POSITION),
+            // Border::Top => Vec2::new(0., BORDER_Y_POSITION),
+            // Border::Bottom => Vec2::new(0., -BORDER_Y_POSITION),
         }
     }
 
     pub fn size(&self) -> Vec2 {
-        let frame_width = 2. * (BORDER_THICKNESS + BORDER_X_POSITION);
+        // let frame_width = 2. * (BORDER_THICKNESS + BORDER_X_POSITION);
         let frame_height = 2. * (BORDER_THICKNESS + BORDER_Y_POSITION);
 
         match self {
             Border::Left | Border::Right => Vec2::new(BORDER_THICKNESS, frame_height),
-            Border::Top | Border::Bottom => Vec2::new(frame_width, BORDER_THICKNESS),
+            // Border::Top | Border::Bottom => Vec2::new(frame_width, BORDER_THICKNESS),
         }
     }
 }
