@@ -8,11 +8,11 @@ impl PlayerHouse {
     pub fn setup(
         mut commands: Commands,
         asset_server: Res<AssetServer>,
-        texture_atlas_res: &mut ResMut<Assets<TextureAtlas>>,
+        mut texture_atlas_res: ResMut<Assets<TextureAtlas>>,
     ) {
         // 2nd floor
         let second_floor_background =
-            PlayerHouse::second_floor_background(&asset_server, texture_atlas_res);
+            PlayerHouse::second_floor_background(&asset_server, &mut texture_atlas_res);
         commands.spawn_bundle(second_floor_background);
     }
 
