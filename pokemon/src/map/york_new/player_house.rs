@@ -1,5 +1,5 @@
-use crate::frame::border::{BORDER_THICKNESS, BORDER_X_POSITION, BORDER_Y_POSITION};
-use crate::tiles::box_tiles::{BoxTiles, BoxTilesType, BOX_TILES_HEIGHT, BOX_TILES_WIDTH};
+use crate::frame::border::BORDER_Y_POSITION;
+use crate::tiles::box_tiles::{BoxTiles, BoxTilesType, BOX_TILES_HEIGHT};
 use bevy::prelude::*;
 
 #[derive(Debug)]
