@@ -1,10 +1,11 @@
 use bevy::{prelude::*, sprite::Rect};
 
-const BOX_TILES_WIDTH: f32 = 160.;
-const BOX_TILES_HEIGHT: f32 = 115.;
-const DEFAULT_BOX_SIZE: Vec2 = Vec2::new(BOX_TILES_WIDTH, BOX_TILES_HEIGHT);
-const PLYWOOD_BOX_POSITION: Vec2 = Vec2::new(484.0, 1122.);
+pub const BOX_TILES_WIDTH: f32 = 160.;
+pub const BOX_TILES_HEIGHT: f32 = 115.;
 pub const DEFAULT_VEC2: Vec2 = Vec2::new(0., 0.);
+pub const DEFAULT_BOX_SIZE: Vec2 = Vec2::new(BOX_TILES_WIDTH, BOX_TILES_HEIGHT);
+pub const PLYWOOD_BOX_POSITION: Vec2 = Vec2::new(484.0, 1122.);
+
 
 #[derive(Debug, Copy, Clone)]
 pub enum BoxTilesType {

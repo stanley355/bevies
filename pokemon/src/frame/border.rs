@@ -1,8 +1,8 @@
 use bevy::prelude::*;
 
-const BORDER_X_POSITION: f32 = 600.;
-const BORDER_Y_POSITION: f32 = 300.0;
-const BORDER_THICKNESS: f32 = 10.;
+pub const BORDER_X_POSITION: f32 = 410.;
+pub const BORDER_Y_POSITION: f32 = 300.0;
+pub const BORDER_THICKNESS: f32 = 10.;
 
 pub enum Border {
     Left,

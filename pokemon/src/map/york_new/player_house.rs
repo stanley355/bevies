@@ -1,4 +1,5 @@
-use crate::tiles::box_tiles::{BoxTiles, BoxTilesType};
+use crate::frame::border::{BORDER_X_POSITION, BORDER_THICKNESS, BORDER_Y_POSITION};
+use crate::tiles::box_tiles::{BoxTiles, BoxTilesType, BOX_TILES_WIDTH, BOX_TILES_HEIGHT};
 use bevy::prelude::*;
 
 #[derive(Debug)]
@@ -24,7 +25,7 @@ impl PlayerHouse {
             box_type: BoxTilesType::Plywood,
             transform: Transform {
                 translation: Vec3::new(0., 0., 0.),
-                scale: Vec3::new(1., 1., 0.0),
+                scale: Vec3::new(5., 5., 0.0),
                 ..default()
             },
         };
