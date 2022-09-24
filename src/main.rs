@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use bevy::render::camera::OrthoGraphicCameraBundle;
 use bevy_inspector_egui::WorldInspectorPlugin;
 use bevy_prototype_debug_lines::*;
 
@@ -23,6 +24,7 @@ fn main() {
 }
 
 fn camera_setup(mut commands: Commands) {
+    let mut camera = OrthoGraphicCameraBundle::new_2d();
     commands.spawn_bundle(Camera2dBundle::default());
 }
 
