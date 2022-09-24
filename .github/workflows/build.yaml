@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install Dependencies
-        run: sudo apt update && sudo apt install --no-install-recommends pkg-config libx11-dev libasound2-dev libudev-dev
+        run: sudo apt update && sudo apt install --no-install-recommends clang g++ pkg-config libx11-dev libasound2-dev libudev-dev lld -y
 
       - uses: actions-rs/toolchain@v1
         with:

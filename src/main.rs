@@ -2,20 +2,27 @@ use bevy::prelude::*;
 use bevy_inspector_egui::WorldInspectorPlugin;
 use bevy_prototype_debug_lines::*;
 
-mod window;
 mod player;
+mod window;
 
+pub const EMPTY_VEC2: Vec2 = Vec2::new(0., 0.);
+pub const EMPTY_VEC3: Vec3 = Vec3::new(0., 0., 0.);
 pub const WINDOW_COLOR: Color = Color::rgb(0.1, 0.1, 0.1);
 
 fn main() {
     let mut app = App::new();
     app.insert_resource(ClearColor(WINDOW_COLOR))
         .insert_resource(window::window_descriptor())
+        .add_system(camera_setup)
         .add_plugins(DefaultPlugins)
         .add_plugin(DebugLinesPlugin::with_depth_test(true))
         .add_plugin(WorldInspectorPlugin::new())
         .add_plugin(player::plugin::PlayerPlugin)
         .run();
+}
+
+fn camera_setup(mut commands: Commands) {
+    commands.spawn_bundle(Camera2dBundle::default());
 }
 
 // TODO: Check why line plugin doesn't work

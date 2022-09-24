@@ -1,31 +1,60 @@
 use bevy::prelude::*;
+use bevy::sprite::Rect;
 use bevy_inspector_egui::Inspectable;
+
+use crate::{EMPTY_VEC2, EMPTY_VEC3};
+
+pub const INITIAL_PLAYER_X_POS: f32 = 24.;
+pub const INITIAL_PLAYER_Y_POS: f32 = 35.;
+
+pub const PLAYER_SPRITE_WIDTH: f32 = 16.;
+pub const PLAYER_SPRITE_HEIGHT: f32 = 21.;
 
 #[derive(Component, Debug, Inspectable)]
 pub struct Player;
 
 impl Player {
-    pub fn spawn_player(
-        mut commands: Commands,
+    fn default_sprite_texture() -> Vec<Rect> {
+        let initial_sprite_pos = Vec2::new(INITIAL_PLAYER_X_POS, INITIAL_PLAYER_Y_POS);
+        let rect = Rect {
+            min: initial_sprite_pos,
+            max: Vec2::new(
+                INITIAL_PLAYER_X_POS + PLAYER_SPRITE_WIDTH,
+                INITIAL_PLAYER_Y_POS + PLAYER_SPRITE_HEIGHT,
+            ),
+        };
+
+        vec![rect]
+    }
+
+    pub fn sprite_bundle(
         asset_server: Res<AssetServer>,
         mut texture_atlases: ResMut<Assets<TextureAtlas>>,
-    ) {
+    ) -> SpriteSheetBundle {
         let texture_handle = asset_server.load("sprites/player_sprites_fill.png");
-        let texture_atlas = TextureAtlas::from_grid(texture_handle, Vec2::new(100.0, 100.0), 1, 1);
+        let mut texture_atlas = TextureAtlas::from_grid(texture_handle, EMPTY_VEC2, 4, 1);
+        texture_atlas.textures = Player::default_sprite_texture();
         let texture_atlas_handle = texture_atlases.add(texture_atlas);
 
         let sprite_transform = Transform {
-            translation: Vec3::new(10.0, 10.0, 10.),
-            scale: Vec3::new(2., 2., 0.0),
+            translation: EMPTY_VEC3,
+            scale: Vec3::new(1., 1., 0.),
             ..Default::default()
         };
 
-        let sprite_bundle = SpriteSheetBundle {
+        return SpriteSheetBundle {
             texture_atlas: texture_atlas_handle,
             transform: sprite_transform,
             ..Default::default()
         };
+    }
 
+    pub fn spawn_player(
+        mut commands: Commands,
+        asset_server: Res<AssetServer>,
+        texture_atlases: ResMut<Assets<TextureAtlas>>,
+    ) {
+        let sprite_bundle = Player::sprite_bundle(asset_server, texture_atlases);
         commands
             .spawn()
             .insert(Name::new("Player"))
