@@ -1,6 +1,5 @@
 use bevy::prelude::*;
 use bevy_inspector_egui::WorldInspectorPlugin;
-use bevy_prototype_debug_lines::*;
 
 mod player;
 mod window;
@@ -12,11 +11,11 @@ pub const WINDOW_COLOR: Color = Color::rgb(0.1, 0.1, 0.1);
 
 fn main() {
     let mut app = App::new();
-    app.insert_resource(ClearColor(WINDOW_COLOR))
+    app
+    .insert_resource(ClearColor(WINDOW_COLOR))
         .insert_resource(window::window_descriptor())
         .add_startup_system(camera_setup)
         .add_plugins(DefaultPlugins)
-        .add_plugin(DebugLinesPlugin::with_depth_test(true))
         .add_plugin(WorldInspectorPlugin::new())
         .add_plugin(player::plugin::PlayerPlugin)
         .run();
@@ -25,26 +24,6 @@ fn main() {
 fn camera_setup(mut commands: Commands) {
     commands.spawn_bundle(Camera2dBundle::default());
 }
-
-// TODO: Check why line plugin doesn't work
-// #[derive(Debug)]
-// pub struct LinePlugin;
-
-// impl Plugin for LinePlugin {
-//     fn build(&self, app: &mut App) {
-//         app.add_system(line_system.label("Line System"));
-//     }
-// }
-
-// fn line_system(
-//     //  ...
-//     mut lines: ResMut<DebugLines>,
-// ) {
-//     let start = Vec3::splat(-1.0);
-//     let end = Vec3::splat(10.0);
-//     let duration = 100.0; // Duration of 0 will show the line for 1 frame.
-//     lines.line(start, end, duration);
-// }
 
 // TODO: Check why OrthographicCameraBundle is not in bevy 0.8
 // fn spawn_camera(mut commands: Commands) {
