@@ -5,10 +5,10 @@ use bevy_inspector_egui::Inspectable;
 use crate::{DEFAULT_SPRITE_SCALE, EMPTY_VEC2};
 
 pub const INITIAL_PLAYER_X_POS: f32 = 24.;
-pub const INITIAL_PLAYER_Y_POS: f32 = 35.;
+pub const INITIAL_PLAYER_Y_POS: f32 = 4.;
 
-pub const PLAYER_SPRITE_WIDTH: f32 = 16.;
-pub const PLAYER_SPRITE_HEIGHT: f32 = 21.;
+pub const PLAYER_SPRITE_WIDTH: f32 = 19.;
+pub const PLAYER_SPRITE_HEIGHT: f32 = 25.;
 
 #[derive(Component, Debug, Inspectable)]
 pub struct Player;
