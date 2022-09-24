@@ -2,7 +2,7 @@ use bevy::prelude::*;
 use bevy::sprite::Rect;
 use bevy_inspector_egui::Inspectable;
 
-use crate::{EMPTY_VEC2, EMPTY_VEC3};
+use crate::{EMPTY_VEC2, EMPTY_VEC3, DEFAULT_SPRITE_SCALE};
 
 pub const INITIAL_PLAYER_X_POS: f32 = 24.;
 pub const INITIAL_PLAYER_Y_POS: f32 = 35.;
@@ -31,14 +31,14 @@ impl Player {
         asset_server: Res<AssetServer>,
         mut texture_atlases: ResMut<Assets<TextureAtlas>>,
     ) -> SpriteSheetBundle {
-        let texture_handle = asset_server.load("sprites/player_sprites_fill.png");
+        let texture_handle = asset_server.load("sprites/player_sprites.png");
         let mut texture_atlas = TextureAtlas::from_grid(texture_handle, EMPTY_VEC2, 4, 1);
         texture_atlas.textures = Player::default_sprite_texture();
         let texture_atlas_handle = texture_atlases.add(texture_atlas);
 
         let sprite_transform = Transform {
             translation: EMPTY_VEC3,
-            scale: Vec3::new(1., 1., 0.),
+            scale: DEFAULT_SPRITE_SCALE,
             ..Default::default()
         };
 
