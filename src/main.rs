@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 use bevy_inspector_egui::WorldInspectorPlugin;
 
+mod map;
 mod player;
 mod window;
 
@@ -16,6 +17,7 @@ fn main() {
         .add_plugins(DefaultPlugins)
         .add_plugin(WorldInspectorPlugin::new())
         .add_startup_system(camera_setup)
+        .add_plugin(map::plugin::MapPlugin)
         .add_plugin(player::plugin::PlayerPlugin)
         .run();
 }

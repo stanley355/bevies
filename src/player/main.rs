@@ -1,8 +1,10 @@
+use std::ops::Add;
+
 use bevy::prelude::*;
 use bevy::sprite::Rect;
 use bevy_inspector_egui::Inspectable;
 
-use crate::{EMPTY_VEC2, EMPTY_VEC3, DEFAULT_SPRITE_SCALE};
+use crate::{DEFAULT_SPRITE_SCALE, EMPTY_VEC2, EMPTY_VEC3};
 
 pub const INITIAL_PLAYER_X_POS: f32 = 24.;
 pub const INITIAL_PLAYER_Y_POS: f32 = 35.;
@@ -32,12 +34,12 @@ impl Player {
         mut texture_atlases: ResMut<Assets<TextureAtlas>>,
     ) -> SpriteSheetBundle {
         let texture_handle = asset_server.load("sprites/player_sprites.png");
-        let mut texture_atlas = TextureAtlas::from_grid(texture_handle, EMPTY_VEC2, 4, 1);
+        let mut texture_atlas = TextureAtlas::from_grid(texture_handle, EMPTY_VEC2, 1, 1);
         texture_atlas.textures = Player::default_sprite_texture();
         let texture_atlas_handle = texture_atlases.add(texture_atlas);
 
         let sprite_transform = Transform {
-            translation: EMPTY_VEC3,
+            translation: EMPTY_VEC2.extend(1.),
             scale: DEFAULT_SPRITE_SCALE,
             ..Default::default()
         };
