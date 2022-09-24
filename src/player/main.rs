@@ -1,10 +1,8 @@
-use std::ops::Add;
-
 use bevy::prelude::*;
 use bevy::sprite::Rect;
 use bevy_inspector_egui::Inspectable;
 
-use crate::{DEFAULT_SPRITE_SCALE, EMPTY_VEC2, EMPTY_VEC3};
+use crate::{DEFAULT_SPRITE_SCALE, EMPTY_VEC2};
 
 pub const INITIAL_PLAYER_X_POS: f32 = 24.;
 pub const INITIAL_PLAYER_Y_POS: f32 = 35.;
