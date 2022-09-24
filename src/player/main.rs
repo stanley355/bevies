@@ -15,8 +15,8 @@ impl Player {
         let texture_atlas_handle = texture_atlases.add(texture_atlas);
 
         let sprite_transform = Transform {
-            translation: Vec3::new(10.0, 0.0, 1.),
-            scale: Vec3::new(4., 4., 0.0),
+            translation: Vec3::new(10.0, 10.0, 10.),
+            scale: Vec3::new(2., 2., 0.0),
             ..Default::default()
         };
 
@@ -26,6 +26,10 @@ impl Player {
             ..Default::default()
         };
 
-        commands.spawn().insert(Player).insert_bundle(sprite_bundle);
+        commands
+            .spawn()
+            .insert(Name::new("Player"))
+            .insert(Player)
+            .insert_bundle(sprite_bundle);
     }
 }
