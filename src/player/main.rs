@@ -64,22 +64,33 @@ impl Player {
 
     pub fn move_player(
         keyboard: Res<Input<KeyCode>>,
-        mut query: Query<&mut Transform, With<Player>>
+        mut query: Query<&mut Transform, With<Player>>,
     ) {
         let mut player_transform = query.single_mut();
 
-        let mut direction = 0.0;
+        let mut x_direction = 0.0;
+        let mut y_direction = 0.0;
 
         if keyboard.pressed(KeyCode::Left) {
-            direction -= 1.0;
+            x_direction -= 2.;
         }
-    
-        if keyboard.pressed(KeyCode::Right) {
-            direction += 1.0;
-        }
-    
-        let new_pos = player_transform.translation.x + direction;
 
-        player_transform.translation.x = new_pos;
+        if keyboard.pressed(KeyCode::Right) {
+            x_direction += 2.;
+        }
+
+        if keyboard.pressed(KeyCode::Up) {
+            y_direction += 2.;
+        }
+
+        if keyboard.pressed(KeyCode::Down) {
+            y_direction -= 2.;
+        }
+
+        let new_x_pos = player_transform.translation.x + x_direction;
+        let new_y_pos = player_transform.translation.y + y_direction;
+
+        player_transform.translation.x = new_x_pos;
+        player_transform.translation.y = new_y_pos;
     }
 }
