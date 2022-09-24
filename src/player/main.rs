@@ -63,4 +63,25 @@ impl Player {
             .insert(Player)
             .insert_bundle(sprite_bundle);
     }
+
+    pub fn move_player(
+        keyboard: Res<Input<KeyCode>>,
+        mut query: Query<&mut Transform, With<Player>>
+    ) {
+        let mut player_transform = query.single_mut();
+
+        let mut direction = 0.0;
+
+        if keyboard.pressed(KeyCode::Left) {
+            direction -= 1.0;
+        }
+    
+        if keyboard.pressed(KeyCode::Right) {
+            direction += 1.0;
+        }
+    
+        let new_pos = player_transform.translation.x + direction;
+
+        player_transform.translation.x = new_pos;
+    }
 }
