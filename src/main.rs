@@ -4,6 +4,7 @@ use bevy_inspector_egui::WorldInspectorPlugin;
 mod map;
 mod player;
 mod window;
+mod camera;
 
 pub const EMPTY_VEC2: Vec2 = Vec2::new(0., 0.);
 pub const EMPTY_VEC3: Vec3 = Vec3::new(0., 0., 0.);
@@ -17,21 +18,9 @@ fn main() {
         .insert_resource(window::window_descriptor())
         .add_plugins(DefaultPlugins)
         .add_plugin(WorldInspectorPlugin::new())
-        .add_startup_system(camera_setup)
+        .add_plugin(camera::CameraPlugin)
         .add_plugin(map::plugin::MapPlugin)
         .add_plugin(player::plugin::PlayerPlugin)
         .run();
 }
 
-fn camera_setup(mut commands: Commands) {
-    let mut camera = Camera2dBundle::default();
-
-    //Set the camera to have normalized coordinates of y values -1 to 1
-    camera.projection.top = 1.0;
-    camera.projection.bottom = -1.0;
-
-    camera.projection.right = 1.0 * RESOLUTION;
-    camera.projection.left = -1.0 * RESOLUTION;
-
-    commands.spawn_bundle(camera);
-}

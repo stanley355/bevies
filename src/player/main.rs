@@ -4,7 +4,7 @@ use bevy_inspector_egui::Inspectable;
 
 use crate::{DEFAULT_SPRITE_SCALE, EMPTY_VEC2};
 
-pub const INITIAL_PLAYER_X_POS: f32 = 24.;
+pub const INITIAL_PLAYER_X_POS: f32 = 25.;
 pub const INITIAL_PLAYER_Y_POS: f32 = 4.;
 
 pub const PLAYER_SPRITE_WIDTH: f32 = 19.;
@@ -117,5 +117,49 @@ impl Player {
 
         player_transform.translation.x = new_x_pos;
         player_transform.translation.y = new_y_pos;
+    }
+
+    pub fn move_player_direction(
+        keyboard: Res<Input<KeyCode>>,
+        asset_server: Res<AssetServer>,
+        mut texture_atlases: ResMut<Assets<TextureAtlas>>,
+        mut query: Query<&mut Handle<TextureAtlas>, With<Player>>,
+    ) {
+        let mut handle = query.single_mut();
+
+        let texture_handle = asset_server.load("sprites/player_sprites.png");
+        let mut texture_atlas_grid = TextureAtlas::from_grid(texture_handle, EMPTY_VEC2, 1, 1);
+        texture_atlas_grid.textures = Player::sprite_textures(FaceDirection::Up);
+        
+        let texture_atlas_handle = &texture_atlases.add(texture_atlas_grid);
+
+        let texture_atlas = texture_atlases.get(&texture_atlas_handle).unwrap();
+        // let handle_2 = texture_atlas.add(texture_atlas_grid);
+        
+        // handle = texture_atlas_handle;
+        // let mut x_direction = 0.0;
+        // let mut y_direction = 0.0;
+
+        // if keyboard.pressed(KeyCode::Left) {
+        //     x_direction -= 2.;
+        // }
+
+        // if keyboard.pressed(KeyCode::Right) {
+        //     x_direction += 2.;
+        // }
+
+        // if keyboard.pressed(KeyCode::Up) {
+        //     y_direction += 2.;
+        // }
+
+        // if keyboard.pressed(KeyCode::Down) {
+        //     y_direction -= 2.;
+        // }
+
+        // let new_x_pos = player_transform.translation.x + x_direction;
+        // let new_y_pos = player_transform.translation.y + y_direction;
+
+        // player_transform.translation.x = new_x_pos;
+        // player_transform.translation.y = new_y_pos;
     }
 }
