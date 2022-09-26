@@ -14,7 +14,7 @@ pub const PLAYER_SPRITE_HEIGHT: f32 = 25.;
 pub struct Player;
 
 impl Player {
-    fn default_sprite_texture() -> Vec<Rect> {
+    fn default_sprite_textures() -> Vec<Rect> {
         let initial_sprite_pos = Vec2::new(INITIAL_PLAYER_X_POS, INITIAL_PLAYER_Y_POS);
         let rect = Rect {
             min: initial_sprite_pos,
@@ -27,14 +27,26 @@ impl Player {
         vec![rect]
     }
 
-    pub fn sprite_bundle(
+    pub fn texture_atlas_handle(
+        sprite_textures: Vec<Rect>,
         asset_server: Res<AssetServer>,
         mut texture_atlases: ResMut<Assets<TextureAtlas>>,
-    ) -> SpriteSheetBundle {
+    ) -> Handle<TextureAtlas> {
         let texture_handle = asset_server.load("sprites/player_sprites.png");
         let mut texture_atlas = TextureAtlas::from_grid(texture_handle, EMPTY_VEC2, 1, 1);
-        texture_atlas.textures = Player::default_sprite_texture();
+        texture_atlas.textures = sprite_textures;
         let texture_atlas_handle = texture_atlases.add(texture_atlas);
+
+        return texture_atlas_handle;
+    }
+
+    pub fn sprite_bundle(
+        asset_server: Res<AssetServer>,
+        texture_atlases: ResMut<Assets<TextureAtlas>>,
+    ) -> SpriteSheetBundle {
+        let sprite_textures = Player::default_sprite_textures();
+        let texture_atlas_handle =
+            Player::texture_atlas_handle(sprite_textures, asset_server, texture_atlases);
 
         let sprite_transform = Transform {
             translation: EMPTY_VEC2.extend(1.),
