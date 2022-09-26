@@ -19,22 +19,14 @@ pub enum FaceDirection {
 }
 
 #[derive(Component, Debug, Inspectable)]
-pub struct Player {
-    face: FaceDirection,
-}
+pub struct Player;
 
 impl Player {
-    pub fn new() -> Self {
-        Player {
-            face: FaceDirection::Down,
-        }
-    }
-
-    fn sprite_textures(self) -> Vec<Rect> {
+    fn sprite_textures(face: FaceDirection) -> Vec<Rect> {
         let mut min_y = INITIAL_PLAYER_Y_POS;
         let max_y = min_y + PLAYER_SPRITE_HEIGHT;
 
-        match self.face {
+        match face {
             FaceDirection::Down => min_y = INITIAL_PLAYER_Y_POS,
             FaceDirection::Up => min_y *= 3.0
         }
@@ -62,11 +54,10 @@ impl Player {
     }
 
     pub fn sprite_bundle(
-        self,
         asset_server: Res<AssetServer>,
         texture_atlases: ResMut<Assets<TextureAtlas>>,
     ) -> SpriteSheetBundle {
-        let sprite_textures = self.sprite_textures();
+        let sprite_textures = Player::sprite_textures(FaceDirection::Down);
         let texture_atlas_handle =
             Player::texture_atlas_handle(sprite_textures, asset_server, texture_atlases);
 
@@ -88,12 +79,11 @@ impl Player {
         asset_server: Res<AssetServer>,
         texture_atlases: ResMut<Assets<TextureAtlas>>,
     ) {
-        let player = Player::new();
-        let sprite_bundle = player.sprite_bundle(asset_server, texture_atlases);
+        let sprite_bundle = Player::sprite_bundle(asset_server, texture_atlases);
         commands
             .spawn()
             .insert(Name::new("Player"))
-            .insert(Player::new())
+            .insert(Player)
             .insert_bundle(sprite_bundle);
     }
 
