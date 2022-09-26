@@ -10,18 +10,39 @@ pub const INITIAL_PLAYER_Y_POS: f32 = 4.;
 pub const PLAYER_SPRITE_WIDTH: f32 = 19.;
 pub const PLAYER_SPRITE_HEIGHT: f32 = 25.;
 
+#[derive(Debug, Inspectable)]
+pub enum FaceDirection {
+    Up,
+    Down,
+    // Left,
+    // Right,
+}
+
 #[derive(Component, Debug, Inspectable)]
-pub struct Player;
+pub struct Player {
+    face: FaceDirection,
+}
 
 impl Player {
-    fn default_sprite_textures() -> Vec<Rect> {
-        let initial_sprite_pos = Vec2::new(INITIAL_PLAYER_X_POS, INITIAL_PLAYER_Y_POS);
+    pub fn new() -> Self {
+        Player {
+            face: FaceDirection::Down,
+        }
+    }
+
+    fn sprite_textures(self) -> Vec<Rect> {
+        let mut min_y = INITIAL_PLAYER_Y_POS;
+        let max_y = min_y + PLAYER_SPRITE_HEIGHT;
+
+        match self.face {
+            FaceDirection::Down => min_y = INITIAL_PLAYER_Y_POS,
+            FaceDirection::Up => min_y *= 3.0
+        }
+
+        let initial_sprite_pos = Vec2::new(INITIAL_PLAYER_X_POS, min_y);
         let rect = Rect {
             min: initial_sprite_pos,
-            max: Vec2::new(
-                INITIAL_PLAYER_X_POS + PLAYER_SPRITE_WIDTH,
-                INITIAL_PLAYER_Y_POS + PLAYER_SPRITE_HEIGHT,
-            ),
+            max: Vec2::new(INITIAL_PLAYER_X_POS + PLAYER_SPRITE_WIDTH, max_y),
         };
 
         vec![rect]
@@ -41,10 +62,11 @@ impl Player {
     }
 
     pub fn sprite_bundle(
+        self,
         asset_server: Res<AssetServer>,
         texture_atlases: ResMut<Assets<TextureAtlas>>,
     ) -> SpriteSheetBundle {
-        let sprite_textures = Player::default_sprite_textures();
+        let sprite_textures = self.sprite_textures();
         let texture_atlas_handle =
             Player::texture_atlas_handle(sprite_textures, asset_server, texture_atlases);
 
@@ -66,11 +88,12 @@ impl Player {
         asset_server: Res<AssetServer>,
         texture_atlases: ResMut<Assets<TextureAtlas>>,
     ) {
-        let sprite_bundle = Player::sprite_bundle(asset_server, texture_atlases);
+        let player = Player::new();
+        let sprite_bundle = player.sprite_bundle(asset_server, texture_atlases);
         commands
             .spawn()
             .insert(Name::new("Player"))
-            .insert(Player)
+            .insert(Player::new())
             .insert_bundle(sprite_bundle);
     }
 
